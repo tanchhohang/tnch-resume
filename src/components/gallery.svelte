@@ -1,64 +1,47 @@
 <script>
-    import { each } from "svelte/internal";
-    import { useLazyImage as lazyImage } from "svelte-lazy-image";
-    let images = []
-    for(let i = 1; i <= 31; i++) {
-        images.push(i);
-    };
+    import { each, onMount } from "svelte/internal";
+    let gallery;
+    let numberOfImages = [];
+
+    for (let i = 1; i < 9; i++) {
+        numberOfImages.push(i);
+    }
+
+    onMount(async() => {
+        window.onmousedown = e => {
+            gallery.dataset.mousePosition = e.clientX;
+        }
+
+        window.onmousemove = e => {
+            const mouseMoved = parseFloat(gallery.dataset.mousePosition) - e.clientX,
+                    maxMove = window.innerWidth / 2; 
+            const percentageMoved = (mouseMoved / maxMove) * 100;
+
+            gallery.style.transform = `translate(-${percentageMoved}%, -25%)`;
+        }
+    });
 </script>
 
-<div class="image-gallery">
-    {#each images as image}
-        <figure class = 'gallery_item gallery_item{image}' >
-            <img src="./img/image-{image}.jpg" class = "gallery_image" alt="Image {image}" use:lazyImage />
-        </figure>
-    {/each}
+<div bind:this = {gallery} class="image-gallery" data-mousePosition = "0px" data-mousePreviousPosition = "0px">
+{#each numberOfImages as index}
+    <img src="./img/image-{index}.jpg" class="galleryImage galleryImage-image{index}" alt = "Image {index}">
+{/each}
 </div>
 
 <style>
     .image-gallery {
-        margin: 10px;
-        padding: 0.5em;
-        gap: 0.5em;
+        display: flex;
+        gap: 1em;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -25%);
     }
 
-    .gallery_item {
-        padding: 0px;
-        margin: 0px 0px 10px 0px;
-        border: 0px;
-    }
-    .gallery_image{
-        display: block;
-        width: 100%;
-        border-radius: 4px;
-        box-shadow: 2px 2px 5px rgba(#000, .7);
-        object-fit:contain;
-    }
-
-    .gallery_item4 {
-        grid-column: span 3;
-    }
-
-    @media screen and (min-device-width: 640px) {
-        .image-gallery {
-            display: columns;
-            columns: 3;
-        }
-
-        @supports(grid-template-rows: masonry) {
-            .image-gallery {
-                display: grid;
-                grid-template-columns: repeat(autofit, minmax(250px, 1fr));
-                grid-template-rows: masonry;
-                align-items: stretch;
-                justify-content: center;
-                grid-gap: 0.5em;
-                padding: 0.5em;
-            }
-
-            .image-gallery > * {
-                margin: 0px;
-            }
-        }
+    .image-gallery > img {
+        width: 32vmin;
+        height: 46vmin;
+        object-fit: cover;
+        object-position: 50% 50%;
     }
 </style>

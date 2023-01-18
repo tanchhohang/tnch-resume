@@ -20,19 +20,12 @@
 <style>
 	main {
 		text-align: center;
-		padding: 1em;
-		max-width: 240px;
+		padding: 0.5rem;
 		margin: 0 auto;
 	}
 
 	footer {
 		padding: 20px;
 		background-color: #000;
-	}
-	
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
 	}
 </style>

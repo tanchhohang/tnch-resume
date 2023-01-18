@@ -13,6 +13,9 @@ html, body {
 	margin: 0px;
 	border: 0px;
 	padding: 0px;
+
+	min-width: 230px;
+	min-height: 365px;
 }
 
 body {

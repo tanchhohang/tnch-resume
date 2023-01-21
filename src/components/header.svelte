@@ -22,6 +22,8 @@
         color: #4a4747f1;
         font-family: 'Raleway', sans-serif;
         font-size: 1.5rem;
+
+        user-select: none;
     }
 
     nav > *:hover {

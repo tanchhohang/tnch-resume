@@ -24,16 +24,19 @@
             if (gallery.dataset.mouseposition === "0") return;
 
             const mouseMoved = ((parseFloat(gallery.dataset.mouseposition) - e.clientX)*200)/window.innerWidth;
+
             const percentageToMove = mouseMoved + parseFloat(gallery.dataset.mouseprevpercentage) < 0 ? 0: mouseMoved + parseFloat(gallery.dataset.mouseprevpercentage) > 100 ? 100: mouseMoved + parseFloat(gallery.dataset.mouseprevpercentage) ;
-            console.table(gallery.dataset);
+
             gallery.dataset.prevpercentage = percentageToMove;
+            
             gallery.animate({
-                transform:` translate(-${parseFloat(percentageToMove)}%, -50%)`
+                transform:` translate(-${parseFloat(percentageToMove)}%, -35%)`
             }, {duration: 600, fill: "forwards"});
-            images.values().forEach(image => {
+            
+            Object.values(images).forEach(image => {
                 image.animate({
                     objectPosition: `${percentageToMove}% center`
-                }, {duration: 600, fill: "forwards"});
+                }, {duration: 300, fill: "forwards"});
             });
         }
     });
@@ -48,18 +51,24 @@
 <style>
     .image-gallery {
         display: flex;
-        gap: 4vmin ;
+        gap: 10vmin ;
         position: absolute;
         left: 50%;
         top: 50%;
-        transform: translate(0%, -50%);
+        transform: translate(0%, -35%);
     }
     
     .image-gallery > img {
         user-select: none;
-        width: 32vmin;
-        height: 44vmin;
+        border-radius: 15px ;
+        width: 44vmin;
+        height: 54vmin;
         object-fit:cover;
         object-position: 100% center;
+    }
+
+    .image-gallery > img:hover {
+        transform: scale(1.25);
+        transition: 0.5s cubic-bezier(.22,.51,.62,.9);
     }
 </style>

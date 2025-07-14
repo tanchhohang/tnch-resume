@@ -2,7 +2,7 @@
     import { each } from "svelte/internal";
     import { useLazyImage as lazyImage } from "svelte-lazy-image";
     let images = []
-    for(let i = 1; i <= 31; i++) {
+    for(let i = 28; i >= 1; i--) {
         images.push(i);
     };
 </script>
@@ -10,7 +10,7 @@
 <div class="image-gallery">
     {#each images as image}
         <figure class = 'gallery_item gallery_item{image}' >
-            <img src="./img/image-{image}.jpg" class = "gallery_image" alt="Image {image}" use:lazyImage />
+            <img src="./img/image ({image}).jpg" class = "gallery_image" alt="Image {image}" use:lazyImage />
         </figure>
     {/each}
 </div>

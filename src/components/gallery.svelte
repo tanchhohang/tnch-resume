@@ -2,7 +2,7 @@
     import { each } from "svelte/internal";
     import { useLazyImage as lazyImage } from "svelte-lazy-image";
     let images = []
-    for(let i = 28; i >= 1; i--) {
+    for(let i = 31; i >= 1; i--) {
         images.push(i);
     };
 </script>
